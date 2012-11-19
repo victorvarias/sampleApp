@@ -31,7 +31,7 @@ class ResumeController extends Controller
 		$query = $em->createQuery(
 			'SELECT b.name AS name, c.name AS city, u.name AS owner FROM OmitsisSampleAppBundle:Boat b, OmitsisSampleAppBundle:City c, OmitsisSampleAppBundle:User u
 			WHERE b.active = 1 AND b.owner = u.id AND b.city = c.id 
-			ORDER BY b.owner, c.name');
+			ORDER BY u.name, c.name');
 			
 		$query2 = $em->createQuery(
 			'SELECT b FROM OmitsisSampleAppBundle:Boat b
@@ -41,8 +41,9 @@ class ResumeController extends Controller
 		$query3 = $em->createQuery(
 			'SELECT b FROM OmitsisSampleAppBundle:Boat b
 			JOIN b.city c
+			JOIN b.owner o
 			WHERE b.active = 1  
-			ORDER BY b.owner, c.name');
+			ORDER BY o.name, c.name');
 			
 		$results = $query3->getResult();
 		
