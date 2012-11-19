@@ -2,12 +2,13 @@
 
 namespace Omitsis\SampleAppBundle\Controller;
 
-
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Omitsis\SampleAppBundle\Entity\User;
+use Omitsis\SampleAppBundle\Form\UserType;
 
 /**
  * User controller.
@@ -51,6 +52,50 @@ class UserController extends Controller
 
         return array(
             'entity'      => $entity,
+        );
+    }
+	
+	/**
+     * Displays a form to create a new User entity.
+     *
+     * @Route("/new", name="user_new")
+     * @Template()
+     */
+    public function newAction()
+    {
+        $entity = new User();
+        $form   = $this->createForm(new UserType(), $entity);
+
+        return array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        );
+    }
+
+    /**
+     * Creates a new User entity.
+     *
+     * @Route("/create", name="user_create")
+     * @Method("POST")
+     * @Template("OmitsisSampleAppBundle:User:new.html.twig")
+     */
+    public function createAction(Request $request)
+    {
+        $entity  = new User();
+        $form = $this->createForm(new UserType(), $entity);
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getId())));
+        }
+
+        return array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
         );
     }
 
