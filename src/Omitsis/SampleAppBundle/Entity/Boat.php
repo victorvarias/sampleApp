@@ -27,7 +27,7 @@ class Boat
     protected $name;
     
     /**
-     * @var boolean $lastname
+     * @var boolean $active
      * @ORM\Column(type="boolean")
      */
     protected $active;

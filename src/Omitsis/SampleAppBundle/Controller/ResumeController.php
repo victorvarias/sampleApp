@@ -29,16 +29,27 @@ class ResumeController extends Controller
         $em = $this->getDoctrine()->getManager();
 
 		$query = $em->createQuery(
-			'SELECT b.name AS name, c.name AS city, u.name AS user FROM OmitsisSampleAppBundle:Boat b, OmitsisSampleAppBundle:City c, OmitsisSampleAppBundle:User u
+			'SELECT b.name AS name, c.name AS city, u.name AS owner FROM OmitsisSampleAppBundle:Boat b, OmitsisSampleAppBundle:City c, OmitsisSampleAppBundle:User u
 			WHERE b.active = 1 AND b.owner = u.id AND b.city = c.id 
+			ORDER BY b.owner, c.name');
+			
+		$query2 = $em->createQuery(
+			'SELECT b FROM OmitsisSampleAppBundle:Boat b
+			WHERE b.active = 1  
 			ORDER BY b.owner, b.city');
 			
-		$res = $query->getResult();
+		$query3 = $em->createQuery(
+			'SELECT b FROM OmitsisSampleAppBundle:Boat b
+			JOIN b.city c
+			WHERE b.active = 1  
+			ORDER BY b.owner, c.name');
+			
+		$results = $query3->getResult();
 		
         $boats = $em->getRepository('OmitsisSampleAppBundle:Boat')->findAll();
 
         return array(
-            'res' => $res,
+            'results' => $results,
         );
     }
 
