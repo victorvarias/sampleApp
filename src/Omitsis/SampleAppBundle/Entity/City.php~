@@ -1,0 +1,33 @@
+<?php
+
+namespace Omitsis\SampleAppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="city")
+ */
+class City
+{
+    /**
+     * @var integer $id
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    
+    /**
+     * @var string $name
+     * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank()
+     */
+    protected $name;
+    
+    /**
+    * @ORM\OneToMany(targetEntity="Omitsis\SampleAppBundle\Entity\User", mappedBy="city")
+    */
+    protected $boats;
+}

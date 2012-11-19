@@ -1,0 +1,9 @@
+/web/bundles/
+/web/media/
+/app/cache/*
+/app/logs/*
+/bin
+/web/uploads/
+/vendor/
+.DS_Store
+/nbproject/

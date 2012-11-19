@@ -1,0 +1,22 @@
+<h1>Resume</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Owner</th>
+            <th>City</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for result in res %}
+        <tr>
+			<td>{{result.user}}</td>
+            <td>{{result.city}}</td>
+			<td>{{result.name}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
