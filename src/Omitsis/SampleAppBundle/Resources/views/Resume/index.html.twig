@@ -20,3 +20,24 @@
 </table>
 
 
+<h1>Resume group whith count</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Owner</th>
+            <th>City</th>
+            <th>Number of boats</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for resultg in resultsGroup %}
+        <tr>
+			<td>{{resultg.owner}}</td>
+            <td>{{resultg.city}}</td>
+			<td>{{resultg.n}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+

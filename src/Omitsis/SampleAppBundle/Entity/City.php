@@ -27,7 +27,7 @@ class City
     protected $name;
     
     /**
-    * @ORM\OneToMany(targetEntity="Omitsis\SampleAppBundle\Entity\User", mappedBy="city")
+    * @ORM\OneToMany(targetEntity="Omitsis\SampleAppBundle\Entity\Boat", mappedBy="city")
     */
     protected $boats;
     /**

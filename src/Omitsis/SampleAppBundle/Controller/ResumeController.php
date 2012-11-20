@@ -45,12 +45,20 @@ class ResumeController extends Controller
 			WHERE b.active = 1  
 			ORDER BY o.name, c.name');
 			
+		$queryGroup = $em->createQuery(
+			'SELECT COUNT(b) AS n, o.name AS owner, c.name AS city FROM OmitsisSampleAppBundle:Boat b
+			JOIN b.city c
+			JOIN b.owner o
+			WHERE b.active = 1  
+			GROUP BY b.owner, b.city
+			ORDER BY o.name, c.name');
+			
 		$results = $query3->getResult();
-		
-        $boats = $em->getRepository('OmitsisSampleAppBundle:Boat')->findAll();
+		$resultsGroup = $queryGroup->getResult();
 
         return array(
             'results' => $results,
+			'resultsGroup' => $resultsGroup,
         );
     }
 
